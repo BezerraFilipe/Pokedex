@@ -9,6 +9,7 @@ return fetch(url) // read more about Fetch API
         .then((pokemons) => pokemons.map((pokemon)=> fetch(pokemon.url).then((pokeBody => pokeBody.json())))) 
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
+        
         .catch((error) => console.error(error))
 }
 
