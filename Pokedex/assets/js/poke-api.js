@@ -1,15 +1,40 @@
 const pokeApi = {}
 
-pokeApi.getPokemons = (offset = 0 , limit = 10) =>{
+function convertPokeApiDetailToPokemon(pokeDetail){ //this function is to simpfly the acess of those pokemons datas in pokeApi
+        const pokemon = new Pokemon()
+        pokemon.number = pokeDetail.id
+        pokemon.name = pokeDetail.name
+        
+        const types = pokeDetail.types.map((typeSlot)=> typeSlot.type.name)
+        const [type] = types
+
+        pokemon.types = types
+        pokemon.type = type
+        
+        pokemon.photo = pokeDetail.sprites.front_default
+
+        return pokemon
+}
+
+pokeApi.getPokemonsDetail = (pokemon)=> {
+        return fetch(pokemon.url)
+                .then((pokeBody) => pokeBody.json()) 
+                .then(convertPokeApiDetailToPokemon) 
+
+        }
+
+
+pokeApi.getPokemons = (offset = 0 , limit =5) =>{
 const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
 
 return fetch(url) // read more about Fetch API
         .then((response) => response.json()) 
         .then((bodyJson) => bodyJson.results)
-        .then((pokemons) => pokemons.map((pokemon)=> fetch(pokemon.url).then((pokeBody => pokeBody.json())))) 
+        .then((pokemons) => pokemons.map(pokeApi.getPokemonsDetail))         
         .then((detailRequests) => Promise.all(detailRequests))
-        .then((pokemonsDetails) => pokemonsDetails)
-        
+        .then((pokemonsDetails) => pokemonsDetails)        
         .catch((error) => console.error(error))
 }
+
+
 
