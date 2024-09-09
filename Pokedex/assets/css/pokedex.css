@@ -97,6 +97,13 @@ text-align: center;
 
 }
 
+.pokeInfo{
+    background-color: rgb(128, 126, 233);
+    padding: 2rem 1rem;
+    margin: 0.5rem ;
+    border-radius: 1rem;
+}
+
 @media screen and (min-width: 380px){
     .pokemons{
         grid-template-columns: 1fr 1fr ;
