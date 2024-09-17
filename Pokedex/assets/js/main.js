@@ -5,11 +5,7 @@ const loadMoreButton = document.getElementById('loadMoreButton')
 const limit = 12 //number of pokemons loaded per page
 let offset = 0 // the "index" of pokemons list
 
-const maxRecords = 151
-
-function loadInformations(){
-
-}
+const maxRecords = 151 // max amount of pokemons that can be renderized
 
 function loadPokemons(offset, limit){
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {  
