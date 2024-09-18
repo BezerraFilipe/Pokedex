@@ -40,7 +40,7 @@ return fetch(url) // the fetch() method returns a promisse, a response of a requ
         .then((pokemons) => pokemons.map(pokeApi.getPokemonsDetail))   // map() has a funct as parameter, wich will be apply to every element in a list;  
                                                                        // at end of all interations, we must have a list of promisses of pokemons objects from Pokemon class;    
         .then((detailRequests) => Promise.all(detailRequests))  
-        .then((pokemonsDetails) => pokemonsDetails)        
+        .then((pokemonsDetails) => pokemonsDetails)        // return a list of pokemons objects
         .catch((error) => console.error(error))
 }
 
