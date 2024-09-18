@@ -11,9 +11,7 @@ const maxRecords = 151 // max amount of pokemons that can be renderized
 
 function loadPokemons(offset, limit){
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {  
-        pokemonList.innerHTML += pokemons.map((pokemon) => {
-            displayedPokemons.push(pokemon)
-            return    `
+        pokemonList.innerHTML += pokemons.map((pokemon) => `
                     <div id= "card-${pokemon.number}">
                         <li class="pokemon ${pokemon.type}">
                             <span class="number">#${pokemon.number}</span>
@@ -26,10 +24,14 @@ function loadPokemons(offset, limit){
                             </div>
                         </li>
                     </div>
-                    `}).join('')
-    
-                
+                    `).join('')//O(n+1)
         
+        
+        pokemons.forEach((pokemon)=>displayedPokemons.push(pokemon))//O(n+1)
+        
+        displayedPokemons.forEach((pokemon) => showPokeInfo(pokemon)) //O(n+1)
+            
+  
     })
     
     
@@ -69,9 +71,7 @@ loadMoreButton.addEventListener('click', ()=>{
     if (qtdRecord >= maxRecords){
         const newLimit =  maxRecords - offset
         loadPokemons(offset, newLimit)
-        for (i=0; i < displayedPokemons.length; i++) {
-            showPokeInfo(displayedPokemons[i])    
-        }
+        
 
         
         loadMoreButton.parentElement.removeChild(loadMoreButton)
