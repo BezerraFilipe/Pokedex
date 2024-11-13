@@ -24,12 +24,12 @@ function loadPokemons(offset, limit){
                             </div>
                         </li>
                     </div>
-                    `).join('')//O(n+1)
+                    `).join('')
         
         
-        pokemons.forEach((pokemon)=>displayedPokemons.push(pokemon))//O(n+1)
+        pokemons.forEach((pokemon)=>displayedPokemons.push(pokemon))
         
-        displayedPokemons.forEach((pokemon) => showPokeInfo(pokemon)) //O(n+1)
+        displayedPokemons.forEach((pokemon) => showPokeInfo(pokemon)) 
             
   
     })
